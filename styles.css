@@ -13,7 +13,7 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 400px; /* Increased width */
     text-align: center;
 }
 
@@ -35,18 +35,24 @@ body {
 
 #movieList li {
     background-color: #e0e0e0;
-    margin: 5px 0;
+    margin: 10px 0; /* Increased margin */
     padding: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start; /* Changed to flex-start */
     align-items: center;
     position: relative;
 }
 
 #movieList img {
-    max-width: 50px;
-    max-height: 75px;
-    margin-right: 10px;
+    max-width: 100px; /* Increased max-width */
+    max-height: 150px; /* Increased max-height */
+    margin-right: 20px; /* Increased margin */
+}
+
+#movieList span {
+    font-size: 18px; /* Increased font-size */
+    flex: 1; /* Allow title to take remaining space */
+    text-align: left; /* Align text to the left */
 }
 
 .removeBtn {

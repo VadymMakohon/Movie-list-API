@@ -17,8 +17,7 @@ A simple web application that allows users to add and remove movies from a list.
 - OMDB API
 
 ## Demo
-(https://file%2B.vscode-resource.vscode-cdn.net/Users/vadymmakohon/Desktop/Screenshot%202024-05-27%20at%2010.36.20%E2%80%AFAM.png?version%3D1716798990250)
-
+![alt text](https://file%2B.vscode-resource.vscode-cdn.net/Users/vadymmakohon/Desktop/Screenshot%202024-05-27%20at%2010.49.41%E2%80%AFAM.png?version%3D1716799819168)
 ## Getting Started
 
 To get a local copy up and running, follow these simple steps.
