@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const movieInput = document.getElementById('movieInput');
     const addMovieBtn = document.getElementById('addMovieBtn');
     const movieList = document.getElementById('movieList');
-    const apiKey = 'YOUR_OMDB_API_KEY'; // Replace with your OMDB API key
+    const apiKey = 'df0d8322142028c805b9dfd293d92ac6'; // Replace with your TMDb API key
 
     // Load movies from local storage
     const loadMovies = () => {
@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
         movies.forEach(movie => addMovieToDOM(movie));
     };
 
-    // Fetch movie details from OMDB API
+    // Fetch movie details from TMDb API
     const fetchMovieDetails = async (title) => {
-        const response = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=${apiKey}`);
+        const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(title)}`);
         const data = await response.json();
         return data;
     };
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const li = document.createElement('li');
 
         const img = document.createElement('img');
-        img.src = movie.poster;
+        img.src = `https://image.tmdb.org/t/p/w500${movie.poster}`;
         img.alt = movie.title;
 
         const span = document.createElement('span');
@@ -44,10 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const title = movieInput.value.trim();
         if (title) {
             const movieDetails = await fetchMovieDetails(title);
-            if (movieDetails.Response === "True") {
+            if (movieDetails.results && movieDetails.results.length > 0) {
+                const movieData = movieDetails.results[0];
                 const movie = {
-                    title: movieDetails.Title,
-                    poster: movieDetails.Poster !== 'N/A' ? movieDetails.Poster : 'default-poster.jpg' // Fallback to a default poster if none found
+                    title: movieData.title,
+                    poster: movieData.poster_path ? movieData.poster_path : '/default-poster.jpg' // Fallback to a default poster if none found
                 };
                 addMovieToDOM(movie);
                 saveMovie(movie);

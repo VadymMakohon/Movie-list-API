@@ -1,6 +1,6 @@
 # Movie List Application
 
-A simple web application that allows users to add and remove movies from a list. The movie details, including images, are fetched from the OMDB API, and the list is persisted in local storage.
+A simple web application that allows users to add and remove movies from a list. The movie details, including images, are fetched from The Movie Database (TMDb) website, and the list is persisted in local storage.
 
 ## Features
 
@@ -17,8 +17,7 @@ A simple web application that allows users to add and remove movies from a list.
 - OMDB API
 
 ## Demo
-
-You can view a live demo of the application [here](#).
+(https://file%2B.vscode-resource.vscode-cdn.net/Users/vadymmakohon/Desktop/Screenshot%202024-05-27%20at%2010.36.20%E2%80%AFAM.png?version%3D1716798990250)
 
 ## Getting Started
 
