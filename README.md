@@ -14,7 +14,7 @@ A simple web application that allows users to add and remove movies from a list.
 - HTML
 - CSS
 - JavaScript
-- OMDB API
+- TMDB API
 
 ## Demo
 ![Screenshot 2024-05-27 at 10 49 41 AM](https://github.com/VadymMakohon/Movie-list-API/assets/138728243/97e12bc2-712b-4c85-a9e5-3cc1b980000f)
