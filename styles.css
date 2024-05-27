@@ -40,6 +40,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+}
+
+#movieList img {
+    max-width: 50px;
+    max-height: 75px;
+    margin-right: 10px;
 }
 
 .removeBtn {
@@ -48,4 +55,6 @@ body {
     border: none;
     padding: 5px 10px;
     cursor: pointer;
+    position: absolute;
+    right: 10px;
 }
