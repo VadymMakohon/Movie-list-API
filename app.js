@@ -14,7 +14,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetchMovieDetails = async (title) => {
         const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(title)}`);
         const data = await response.json();
-        return data;
+        if (data.results && data.results.length > 0) {
+            const movieData = data.results[0];
+            const movieDetailsResponse = await fetch(`https://api.themoviedb.org/3/movie/${movieData.id}?api_key=${apiKey}`);
+            const movieDetails = await movieDetailsResponse.json();
+            return {
+                title: movieData.title,
+                poster: movieData.poster_path ? movieData.poster_path : '/default-poster.jpg', // Fallback to a default poster if none found
+                releaseDate: movieData.release_date,
+                director: movieDetails.credits.crew.find(member => member.job === 'Director')?.name || 'Unknown',
+                genre: movieDetails.genres.map(genre => genre.name).join(', ')
+            };
+        } else {
+            return null;
+        }
     };
 
     // Add movie to DOM
@@ -25,8 +38,25 @@ document.addEventListener('DOMContentLoaded', () => {
         img.src = `https://image.tmdb.org/t/p/w500${movie.poster}`;
         img.alt = movie.title;
 
-        const span = document.createElement('span');
-        span.textContent = movie.title;
+        const detailsDiv = document.createElement('div');
+        detailsDiv.classList.add('movie-details');
+
+        const titleSpan = document.createElement('span');
+        titleSpan.textContent = `Title: ${movie.title}`;
+
+        const releaseDateSpan = document.createElement('span');
+        releaseDateSpan.textContent = `Release Date: ${movie.releaseDate}`;
+
+        const directorSpan = document.createElement('span');
+        directorSpan.textContent = `Director: ${movie.director}`;
+
+        const genreSpan = document.createElement('span');
+        genreSpan.textContent = `Genre: ${movie.genre}`;
+
+        detailsDiv.appendChild(titleSpan);
+        detailsDiv.appendChild(releaseDateSpan);
+        detailsDiv.appendChild(directorSpan);
+        detailsDiv.appendChild(genreSpan);
 
         const removeBtn = document.createElement('button');
         removeBtn.textContent = 'Remove';
@@ -34,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         removeBtn.addEventListener('click', () => removeMovie(movie.title));
 
         li.appendChild(img);
-        li.appendChild(span);
+        li.appendChild(detailsDiv);
         li.appendChild(removeBtn);
         movieList.appendChild(li);
     };
@@ -43,13 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const addMovie = async () => {
         const title = movieInput.value.trim();
         if (title) {
-            const movieDetails = await fetchMovieDetails(title);
-            if (movieDetails.results && movieDetails.results.length > 0) {
-                const movieData = movieDetails.results[0];
-                const movie = {
-                    title: movieData.title,
-                    poster: movieData.poster_path ? movieData.poster_path : '/default-poster.jpg' // Fallback to a default poster if none found
-                };
+            const movie = await fetchMovieDetails(title);
+            if (movie) {
                 addMovieToDOM(movie);
                 saveMovie(movie);
                 movieInput.value = '';
